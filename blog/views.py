@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Post, Comment
 from .forms import CommentForm
@@ -20,9 +22,10 @@ def comment_new(request, post_pk):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
-            comment.post = get_object_or_404(Post pk=post_pk)
+            comment.post = get_object_or_404(Post, pk=post_pk)
             comment.user = request.user
             comment.save()
+            messages.success(request, '새로운 댓글이 등록되었습니다.')
             return redirect('blog:post_detail', post_pk)
     else:
         form = CommentForm()
@@ -42,6 +45,7 @@ def comment_edit(request, post_pk, pk):
             comment.post = get_object_or_404(Post, pk=post_pk)
             comment.user = request.user
             comment.save()
+            messages.success(request, '댓글이 수정되었습니다.')
             return redirect('blog:post_detail', post_pk)
     else:
         form = CommentForm(instance=comment)
