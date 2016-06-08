@@ -9,7 +9,7 @@
 
     <img src="{{ post.photo.url }}" width="100%" />
 
-    {{ post.content|linebreaks }
+    {{ post.content|linebreaks }}
 
     <h3>댓글</h3>
    <a href="{% url "blog:comment_new" post.pk %}" class="btn btn-primary btn-block">댓글 쓰기</a>
