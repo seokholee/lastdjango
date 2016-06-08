@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from .models import post_detail
+from .models import Post
 from .forms import CommentForm
 
 def index(request):
